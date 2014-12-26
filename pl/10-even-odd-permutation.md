@@ -2,6 +2,8 @@
 
 Четная / нечетная перестановка
 
+[Теория](http://stu.sernam.ru/book_algebra.php?id=129)
+
 ## Решение
 
     /* even_permutation(Xs, Ys) истина, если Ys - четная перестановка Xs. */
