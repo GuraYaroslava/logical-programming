@@ -1,0 +1,280 @@
+\documentclass[a4paper,titlepage,oneside]{article}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{soul}
+\usepackage[usenames]{color}
+\usepackage{colortbl}
+\usepackage{listings}
+\lstset{extendedchars=\true}
+%\lstset{language=[LaTeX]TeX, frame=tb}
+\usepackage[left = 2cm, right = 2cm, top = 2cm, bindingoffset = 0cm]{geometry}
+\renewcommand{\baselinestretch}{1.65}
+
+\title{Домашняя работа\\
+ 	по логическому программированию}
+\author{Выполнила Гура Ярослава г. Б8403а}
+\date{6 октября 2014 г.}
+
+\begin{document}
+	\maketitle
+
+	\hspace{1em}
+	
+\begin{center}
+    \textbf{\No1 Записать функцию эквиваленции в виде булевых формул, которые находятся в скнф и сднф.}
+\end{center} 
+
+\subsubsection*{Решение}
+\begin{table}[h]
+	\caption{Эквиваленция}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$№$ & $A$ & $B$ & $A \longleftrightarrow B$\\
+			\hline
+			1 & 0 & 0 & 1 \\
+			\hline
+			2 & 0 & 1 & 0 \\
+			\hline
+			3 & 1 & 0 & 0 \\
+			\hline
+			4 & 1 & 1 & 1 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{quote}
+    Операцию эквиваленции можно выразить через
+    \begin{itemize}	
+        \item отрицание ($\neg$)
+        \item конъюнкцию ($\wedge$)
+        \item дизъюнкцию ($\vee$)
+    \end{itemize}	
+    СДНФ \\
+    Совершенная Дизъюктивная Нормальная Форма (СДНФ) функции - дизъюнкция полных правильных элементарных конъюнкций, равных единице на тех же наборах, что и функция. \\
+    \underline{Построим СДНФ для эквиваленции}. \\
+    Для каждой строки таблицы истинности, содержащей единицу, построим полную конъюнкцию (произведение аргументов).
+    \begin{enumerate}
+    \item Переменные, имеющие нуль в соответствующей строке, входят в произведение с отрицанием. 
+    \item Переменные, имеющие значение единицы – без отрицания.
+    \end{enumerate}
+    Из 1-ой строки $\verb Таблицы 1$ получим: \\
+        $\neg A \wedge \neg B$ \\
+    Из 2-ой строки $\verb Таблицы 1$ получим: \\
+        $A \wedge B$ \\
+        
+    Запишем дизъюнкцию конъюнкций (сумму произведений): \\
+        $\neg A \wedge \neg B \vee A \wedge B$ \\ 
+    Таким образом, СДНФ($A \longleftrightarrow B $) $=\ \neg A \wedge \neg B \vee A \wedge B$ \\
+    
+    CКНФ \\
+    Совершенная Конъюктивная Нормальная Форма (СКНФ) функции - конъюнкция полных правильных элементарных дизъюнкций, равных нулю на тех же наборах, что и функция. \\
+    \underline{Построим СДНФ для эквиваленции}. \\
+    Для каждой строки таблицы истинности с нулевым значением функции запишем полную дизъюнкцию (логическую сумму аргументов).
+    \begin{enumerate}
+    \item Переменные, имеющие значения 1 в строке, входят в эту сумму с отрицанием.
+    \item Переменные со значением 0 – без отрицания.
+    \end{enumerate}
+    Из 3-ой строки $\verb Таблицы 1$ получим: \\
+        $A \vee \neg B$ \\
+    Из 4-ой строки $\verb Таблицы 1$ получим: \\
+        $\neg A \vee B$ \\
+        
+    Запишем конъюнкцию дизъюнкций (произведение сумм): \\
+        $A \vee \neg B \wedge \neg A \vee B$ \\ 
+    Таким образом, СКНФ($A \longleftrightarrow B $) $=\ (A \vee \neg B) \wedge (\neg A \vee B)$
+\end{quote}
+$\star$
+
+\begin{center}
+    \textbf{\No3 Преобразовать формулы, используя только причнно-следственные связи.}
+\end{center} 
+
+\begin{enumerate}
+    \item $\forall X\ (p(X) \vee \neg q(X))$
+    \item $\forall X\ (p(X) \vee \neg \exists Y(q(X,Y)\wedge r(X))$
+    \item $\forall X\ (\neg p(X) \vee (q(X) \rightarrow r(X)))$
+    \item $\forall X\ (r(X) \rightarrow (q(X) \rightarrow p(X)))$
+\end{enumerate}
+
+\subsubsection*{Решение}
+
+$\textcolor{magenta}{B_{1}\& ...\& B_{n} \rightarrow A \equiv }$ \\
+$\textcolor{magenta}{\equiv (\overline{B_{1} \& ...\& B_{n}}) \vee A}$ \\
+$\textcolor{magenta}{\equiv \overline{B_{1}} \vee ... \vee \overline{B_{n}} \vee A }$
+
+\begin{enumerate}
+    \item $\forall X\ (p(X) \vee \neg q(X)) \equiv$ \\
+          $\forall X\ (\neg q(X) \vee  p(X)) \equiv$ \\
+          $\forall X\ (q(X) \rightarrow q(X)) \equiv$ \\ 
+            
+    
+    \item $\forall X\ (p(X) \vee \textcolor{blue}{\neg \exists Y(q(X,Y)\wedge r(X))}) \textcolor{green}{\Rightarrow}$ \\
+          $\textcolor{magenta}{\forall X\ \exists \neg F(X) \equiv \neg \exists X F(X)}$ \\
+          $\textcolor{blue}{\neg \exists Y(q(X,Y)\wedge r(X))}\ =$ 
+          $\forall X,Y\ \neg (q(X,Y) \wedge r(X))$ \\
+          $\textcolor{green}{\Rightarrow} \forall X,Y\ (p(X) \vee \neg (q(X,Y) \wedge r(X))) \equiv$ \\
+          $\forall X,Y\ (p(X) \vee \neg q(X,Y) \vee \neg r(X)) \equiv$ \\
+          $\forall X,Y\ (\neg q(X,Y) \vee \neg r(X) \vee p(X)) \equiv$ \\ 
+          $\forall X,Y\ (\overline{q}(X,Y) \vee \overline{r}(X) \vee p(X)) \equiv$ \\
+          $\forall X,Y\ (q(X,Y)\ \&\ r(X) \rightarrow p(X))$           
+    
+    \item $\forall X\ (\neg p(X) \vee \textcolor{blue}{(q(X) \rightarrow r(X))}) \textcolor{green}{\Rightarrow}$ \\
+          $\textcolor{magenta}{x \rightarrow y \equiv \neg x \vee y}$ \\
+          $\textcolor{blue}{(q(X) \rightarrow r(X))}\ =\ \neg q(X) \vee r(X)$ \\
+          $\textcolor{green}{\Rightarrow} \forall X\ (\neg p(X) \vee \neg q(X) \vee r(X)) \equiv$ \\
+          $\forall X\ (\overline{p}(X) \vee \overline{q}(X) \vee r(X)) \equiv$ \\
+          $\forall X\ (p(X)\ \&\ q(X) \rightarrow r(X))$    
+    
+    \item $\forall X\ (r(X) \rightarrow \textcolor{blue}{(q(X) \rightarrow p(X))}) \textcolor{green}{\Rightarrow}$ \\
+          $\textcolor{magenta}{x \rightarrow y \equiv \neg x \vee y}$ \\
+          $\textcolor{blue}{(q(X) \rightarrow p(X))}\ =\ \neg q(X) \vee p$ \\
+          $\textcolor{green}{\Rightarrow} \forall X\ (r(X) \rightarrow (\neg q(X) \vee p(X))) \equiv$ \\
+          $\forall X\ (\neg r(X) \vee (\neg q(X) \vee p(X))) \equiv$ \\
+          $\forall X\ (\overline{r}(X) \vee \overline{q}(X) \vee p(X)) \equiv$ \\
+          $\forall X\ (r(X)\ \&\ q(X) \rightarrow p(X))$          
+\end{enumerate}
+$\star$
+
+\begin{center}
+    \textbf{\No4 Fawlty Towers Hotel.}
+\end{center} 
+
+Факты:
+\begin{enumerate}
+\item Basil owns Fawlty Towers Hotel.
+\item Basil and Sybil are married.
+\item Polly and Manuel are employees at Fawlty Towers.
+\item Smith and Jones are guests at Fawlty Towers.
+\item Basil dislikes Manuel.
+\end{enumerate}
+
+Правила:
+\begin{enumerate}
+\item All hotel-owners and their spouses serve all guests at the hotel.
+\item All employees at a hotel serve all guests at the hotel.
+\item All employees dislike the owner of the workplace.
+\end{enumerate}
+
+$\textcolor{blue}{Find\ answers\ to\ the\ queries\ "Who\ serves\ who?"\ and\ "Who\ dislikes\ whom?".}$
+
+\subsubsection*{Решение}
+Формализуем факты: 
+	\begin{center}
+		\footnotesize 
+		\begin{tabular}{|c|}
+		    \hline own(Basil) \\
+    	    \hline spouses(Basil, Sybil) \\ 
+    	    \hline employee(Polly) \\
+    	    \hline employee(Manuel) \\
+    	    \hline guest(Smith) \\
+  			\hline guest(Jones) \\
+    		\hline dislik(Basil, Manuel) \\
+			\hline
+		\end{tabular}
+		\normalsize
+	\end{center}
+
+Запишем правила: \\
+All hotel-owners and their spouses serve all guests at the hotel. \\
+$\forall X, Y\ serve(X, Y) \leftarrow (((\exists Z (spouses(X, Z) \wedge own(Z))) \vee own(X)) \wedge guest(Y))$ \\
+$\forall X, Y\ serve(X, Y) \leftarrow \exists Z ((((spouses(X, Z) \wedge own(Z))) \vee own(X)) \wedge guest(Y))$ \\
+$\textcolor{magenta}{x \rightarrow y \equiv \neg x \vee y}$ \\
+$\forall X, Y\ serve(X, Y) \vee \neg \exists Z ((((spouses(X, Z) \wedge own(Z))) \vee own(X)) \wedge guest(Y))$ \\
+$\textcolor{magenta}{\forall X\ \exists \neg F(X) \equiv \neg \exists X F(X)}$ \\
+$\forall X, Y\ serve(X, Y) \vee \forall Z \neg ((((spouses(X, Z) \wedge own(Z))) \vee own(X)) \wedge guest(Y))$ \\
+$\forall X, Y, Z\ serve(X, Y) \vee \neg ((((spouses(X, Z) \wedge own(Z))) \vee own(X)) \wedge guest(Y))$ \\
+$\forall X, Y, Z\ serve(X, Y) \leftarrow ((((spouses(X, Z) \wedge own(Z))) \vee own(X)) \wedge guest(Y))$ \\
+	\begin{center}
+		\footnotesize 
+		\begin{tabular}{|c|c|c|}
+
+		    \hline 
+		    1 &
+		    $All\ hotel-owners\ and\ their\ spouses\ serve\ all\ guests\ at\ the\ hotel$ & 
+		    $\forall X, Y, Z\ serve(X, Y) \leftarrow$ \\
+		    & & $\leftarrow ((((spouses(X, Z) \wedge own(Z))) \vee own(X)) \wedge guest(Y))$ \\
+		    
+    	    \hline 
+    	    2 &
+    	    $All\ employees\ at\ a\ hotel\ serve\ all\ guests\ at\ the\ hotel$ &
+    	    $\forall X, Y\ serve(X, Y) \leftarrow employee(X)$ \\
+    	    
+    	    \hline 
+    	    3 &
+    	    $All\ employees\ dislike\ the\ owner\ of\ the\ workplace$ &
+    	    $\forall X, Y\ dislik(X, Y) \leftarrow own(X)$ \\
+			\hline
+		\end{tabular}
+		\normalsize
+	\end{center}
+	
+    Опираясь на факты и метоправила, можем ответить на вопросы:
+    \begin{enumerate}
+    \item Кто кому служит? \\
+          Basil служит Smith (по первому правилу). \\
+          Basil служит Jones (по первому правилу). \\
+          Sybil служит Smith (по первому правилу). \\
+          Sybil служит Jones (по первому правилу). \\
+          Polly служит Smith (по второму правилу). \\
+          Manuel служит Jones (по второму правилу). 
+    \item Кто кого не любит? \\
+          Polly не любит Basil (по третьему правилу). \\
+          Manuel не любит Basil (по третьему правилу). \\
+          Basil не любит Manuel (по факту).
+    \end{enumerate}
+$\star$
+
+\begin{center}
+    \textbf{\No5 Описать мир блоков.}
+\end{center} 
+
+\subsubsection*{Решение}
+\begin{table}[h]
+	\caption{Блоки}
+	\begin{center}
+		\begin{tabular}{|c|}
+			\hline
+			b1 \\
+			\hline
+			b8 \\
+			\hline
+			b9 \\
+			\hline
+			b6 \\
+			\hline
+			b7 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+Из таблицы блоков следует:\\
+$on(b7, b6)$ \\
+$on(b6, b9)$ \\
+$on(b9, b8)$ \\
+$on(b8, b1)$ \\
+
+Опишем мир блоков в общей сложности:\\
+Блок A находится на (on) B, a B находится на (on) C. \\  
+$on(A, B).$ \\
+$on(B, C).$ \\
+Блок X находится выше (above) Y, если X находится на (on) Y. \\
+$above(X, Y) \leftarrow on(X, Y).$ \\
+Блок X находится выше (above) Y, если существует какой-то другой блок Z, размещенный на (on) Y, и X находится выше (above) Y.  \\
+$above(X, Y) \leftarrow on(Z, Y),\ above(X, Z).$ \\
+$\star$
+
+\end{document}\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\begin{document}
+•
+\end{document}
